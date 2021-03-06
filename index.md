@@ -1,12 +1,8 @@
 ## Welcome to GitHub Pages
-<div>
-  <iframe id="inlineFrameExample"
-      title="Inline Frame Example"
-      width="300"
-      height="200"
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik">
-  </iframe>
+<div class="iframe_container">
+  <iframe width="560" height="315" src="http://www.youtube.com/embed/E-ONNjFoOx0" frameborder="0" allowfullscreen></iframe>
 </div>
+
 You can use the [editor on GitHub](https://github.com/Dozeey/chegspharmstore/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
