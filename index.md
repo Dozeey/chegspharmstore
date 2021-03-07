@@ -1,7 +1,4 @@
 ## Welcome to GitHub Pages
-<div class="iframe_container">
-  <iframe width="560" height="315" src="http://www.youtube.com/embed/E-ONNjFoOx0" frameborder="0" allowfullscreen></iframe>
-</div>
 
 You can use the [editor on GitHub](https://github.com/Dozeey/chegspharmstore/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
