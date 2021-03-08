@@ -24,12 +24,24 @@ require("./assets/config.php");
         <div class="text-center mb-4">
         <!-- <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
         <h1 class="h3 mb-3 font-weight-normal">Upload A new Product</h1>
-        <h2><a href="Javascript:void(0)" onclick="goBack()"><img src="../display/images/image-removebg-preview.png" alt="Back" width="200" height="auto"></a></h2>
+        <h2><a href="Javascript:void(0)" onclick="goBack()"><img src="../assets/img/image-removebg-preview.png" alt="Back" width="200" height="auto"></a></h2>
       </div>
 
       <div class="form-label-group">
         <input type="text" id="title" name="title" class="form-control" placeholder="Design Title" required autofocus>
         <label for="title">Product Title</label>
+      </div>
+      <div class="form-label-group">
+        <input type="text" id="ptype" name="ptype" class="form-control" placeholder="eg capusule" required autofocus>
+        <label for="ptype">Drug Type eg capsule</label>
+      </div>
+      <div class="form-label-group">
+        <input type="text" id="pmaker" name="pmaker" class="form-control" placeholder="eg fizer" required autofocus>
+        <label for="pmaker">Drug Maker eg. fizer</label>
+      </div>
+      <div class="form-label-group">
+        <input type="number" id="price" name="price" class="form-control" placeholder="1000" required autofocus>
+        <label for="price">Price</label>
       </div>
 
       <div class="form-label-group">
@@ -40,11 +52,23 @@ require("./assets/config.php");
       </div>
 
       <div class="form-label-group">
-        <textarea type="text" id="desc" name="desc" class="form-control" placeholder="Design Description" required></textarea>
+        <textarea type="text" id="desc" name="desc" class="form-control" placeholder="Product Description" required></textarea>
       </div>
       <div class="form-label-group">
         <input type="file" accept="image/*" id="fileuplaod" name="fileuplaod" class="form-control" placeholder="Design for Upload" required>
-        <label for="fileuplaod">Product image Upload</label>
+        <label for="fileuplaod">Product image 1</label>
+      </div>
+      <div class="form-label-group">
+        <input type="file" accept="image/*" id="fileuplaod2" name="fileuplaod2" class="form-control" placeholder="Design for Upload" required>
+        <label for="fileuplaod2">Product image 2</label>
+      </div>
+      <div class="form-label-group">
+        <input type="file" accept="image/*" id="fileuplaod3" name="fileuplaod3" class="form-control" placeholder="Design for Upload" required>
+        <label for="fileuplaod2">Product image 3</label>
+      </div>
+      <div class="form-label-group">
+        <input type="file" accept="image/*" id="fileuplaod4" name="fileuplaod4" class="form-control" placeholder="Design for Upload" required>
+        <label for="fileuplaod2">Product image 4</label>
       </div>
       <div class="form-label-group">
         <select  id="category" name="category" class="form-control" placeholder="Image category" required>
