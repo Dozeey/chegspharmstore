@@ -9,7 +9,7 @@
     }
     else{
         // $host = 'localhost'; $dbname = 'projects_coinprofit'; $user = 'root'; $pass = '';
-        $host = 'localhost'; $dbname = 'maddesign'; $user = 'root'; $pass = '';
+        $host = 'localhost'; $dbname = 'chegspharm'; $user = 'root'; $pass = '';
     }
     
     # connect to the database

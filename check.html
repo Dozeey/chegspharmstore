@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+var urlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+})();
+// alert(urlParams["mode"]);
+// // -> "front"
+
+// alert("empty" in urlParams);
+// -> true
+    </script>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="jQuery Select Drop Down On Change Event">
+    <meta name="author" content="Projex">
+
+    <title>jQuery Select Drop Down On Change Event | Prodjex Web Development and Consulting</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/signin.css" rel="stylesheet">
+
+    <style>
+        body{background-color: grey;}
+        p{color: #fff;}
+        #additionalOptions{display:none;}
+    </style>
+</head>
+
+<body class="text-center">
+
+<div class="container">
+    <div class="col-md-12">
+        <img src="https://forums.prodjex.com/uploads/monthly_2017_12/5a49485fa77dd_logobig.png.0c19c7fc9cc393df1ad69f5ec30877c1.png"><br><br>
+        <p>Select an option from the drop down menu.</p>
+        <div class="form-group">
+            <select class="form-control" name="options" id="options" placeholder="Options">
+                <option value="">Select an option...</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="additionalOptions" id="additionalOptions" placeholder="Additional Options">
+                <option value="">Select an option...</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    $( "#options" ).change(function() {
+        $("#additionalOptions").show();
+    });
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery Get Selected Option Value</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("select.country").change(function(){
+        var selectedCountry = $(this).children("option:selected").val();
+        alert("You have selected the country - " + selectedCountry);
+    });
+});
+</script>
+</head> 
+<body>
+    <form>
+        <label>Select Country:</label>
+        <select class="country">
+            <option value="usa">United States</option>
+            <option value="india">India</option>
+            <option value="uk">United Kingdom</option>
+        </select>
+    </form>
+</body>
+</html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="icon" href="../assets/img/favicon.png">
     <!-- <script src="https://use.fontawesome.com/5e503ffca0.js"></script> -->
 
     <title>Chegs Pharm manager</title>
@@ -56,20 +56,25 @@
           <?php
 require("./assets/config.php");
 
-$query = mysqli_query($con,"SELECT * FROM images ");
+$query = mysqli_query($con,"SELECT * FROM products ");
 while ($row = mysqli_fetch_assoc($query)) {
   extract($row);
   if ($featured=="yes") {
-$btn1=" Remove from Latest Designs";
+$btn1=" Remove from Best Selling";
   } else {
-    $btn1="Add to Latest Designs";
+    $btn1="Add to Best Selling";
   }
   if ($banner=="yes") {
     $btn2="Remove from banner slider";
       } else {
         $btn2="Add to banner slider ";
       }
-      if ($thumbnail !="yes") {
+      if ($isnew=="yes") {
+        $btn4="Remove from New Arrivals";
+          } else {
+            $btn4="Add to New Arrivals ";
+          }
+          if ($thumbnail !="yes") {
         $btn3="<a type='button' class='btn btn-sm btn-outline-warning' href='javascript:void(0);'onclick='makeThumbnail($id);'>Assign as <b style='color:blue'>$category</b> Category Thumbnail</a>";
           } else {
             $btn3=" <button type='button' class='btn btn-sm btn-outline-info'>This is the Current <b class='text-warning'>$category</b> Category Thumbnail</button>
@@ -78,14 +83,15 @@ $btn1=" Remove from Latest Designs";
           echo 
             "<div class='col-md-4'>
               <div class='card mb-4 box-shadow'>
-               <a href='#' type='button' data-target='#viewPic_$id' data-toggle='modal'><img class='card-img-top' src='$imagepath' alt='$title'></a>
+               <a href='#' type='button' data-target='#viewPic_$id' data-toggle='modal'><img class='card-img-top' src='../$imagepath' alt='$title'></a>
                 <div class='card-body'>
-                <h4 class='card-title'>$title</h4>                    <small class='text-muted'>cat: $category </small>
+                <h4 class='card-title'>$title &nbsp;|&nbsp;<small class='text-muted'>Selling Price: &#8358;$dprice </small> </h4>       
+                <small class='text-muted'>Price: &#8358;$price </small> |  <small class='text-muted'>cat: $category </small> |  <small class='text-muted'>Type: $ptype </small> |  <small class='text-muted'>Maker: $pmaker </small>
 
                 <p class='card-text'>$imagedesc</p>
                   <div class='d-flex justify-content-between align-items-center'>
-                    <div class='btn-group'>";
-                      // <button type='button' data-target='#viewPic_$id' data-toggle='modal' class='btn btn-sm btn-outline-info'>View</button> 
+                    <div class='btn-group'>".
+                      "<button type='button' data-target='#viewPic_$id' data-toggle='modal' class='btn btn-sm btn-outline-info'>View</button>"; 
                       echo"<button type='button' data-target='#edit-card-details_$id' data-toggle='modal' class='btn btn-sm btn-outline-warning'>Edit</button>
                       <a type='button' class='btn btn-sm btn-outline-danger' href='javascript:void(0);'onclick='deleteImage($id);'>Delete</a>
                     </div>
@@ -105,15 +111,24 @@ echo
         <button type='button' class='close font-weight-400 btn-danger' data-dismiss='modal' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button>
       </div>
       <div class='modal-body p-4'>
-      <form method='POST' id='proImage$id' name='proImage' class='form-signin'>
+      ='<form method='POST' id='proImage$id' name='proImage' class='form-signin'>
       <div class='form-group'>
-      <label for='editTitle'>Design Title</label>
+      <label for='editTitle'>Drug Title, Price & Discounted Price</label>
       <div class='input-group'>
-      <input type='text' class='form-control' data-bv-field='editTitle' id='editTitle'  name='editTitle' value='$title' placeholder='Design Title'>
-      <input type='hidden' class='form-control' data-bv-field='imageId' id='imageId'  name='imageId' value='$id' hidden>
+      <input type='text' class='form-control' data-bv-field='editTitle' id='editTitle'  name='editTitle' value='$title' placeholder='Drug Title'>
+      <input typehidden' class='form-control' data-bv-field='imageId' id='imageId'  name='imageId' value='$id' hidden>
+      <input type='number' onchange='setDecimal' min='0' max='5000000' step='0.01' class='form-control' data-bv-field='editPrice' id='editPrice'  name='editPrice' value='$price' placeholder='Drug Price'>
+      <input type='number' onchange='setDecimal' min='0' max='5000000' step='0.01' class='form-control' data-bv-field='editDPrice' id='editDPrice'  name='editDPrice' value='$dprice' placeholder='Drug Discounted Price'>
       </div>
     </div>
     <div class='form-group'>
+    <label for='editDetails'>Drug TYpe & Maker</label>
+    <div class='input-group'>
+    <input type='text' class='form-control' data-bv-field='editType' id='editType'  name='editType' value='$ptype' placeholder='Drug Type'>
+    <input type='text' class='form-control' data-bv-field='editMaker' id='editMaker'  name='editMaker' value='$pmaker' placeholder='Drug Maker'>
+    </div>
+  </div>
+  <div class='form-group'>
     <label for='editBannerText'>Banner Text <small class='text-danger'>(if you decide to make this picture a website banner slider, what text should be shown on it?)</small>Add a word inbetween the span tag to Mark it as a keywork eg. <code>&lt;span&gt;Design&lt;/span&gt;</code></small></label>
     <div class='input-group'>
     <input type='text' class='form-control' data-bv-field='editBannerText' id='editBannerText'  name='editBannerText' value='$bannertext'maxlenght='100' placeholder='Banner Text'>
@@ -126,7 +141,8 @@ echo
                 
 $query2 = mysqli_query($con,"SELECT * FROM categories ORDER BY RAND() ");
 while ($text = mysqli_fetch_assoc($query2)) {
-  extract($text);
+  $texty= $text['texty'];
+  // extract($text);
 echo
 "<option value='$texty'>$texty</option>";}
 
@@ -140,9 +156,10 @@ echo
           <input type='submit' class='btn btn-success' Value='Update Changes'>
 </form>
           <div class='form-group'>
-            <label for='options'>Image options</label> <br>
-            <a type='button' class='btn btn-sm btn-outline-warning' href='javascript:void(0);'onclick='makeLatest($id);'>$btn1</a>
-            <a type='button' class='btn btn-sm btn-outline-warning' href='javascript:void(0);'onclick='makeBanner($id);'>$btn2</a>".
+            <label for='options'>Product Settings</label> <br>
+            <a type='button' class='btn btn-sm btn-outline-info' href='javascript:void(0);'onclick='makeNewArrival($id);'>$btn4</a>
+            <a type='button' class='btn btn-sm btn-outline-primary' href='javascript:void(0);'onclick='makeBestSelling ($id);'>$btn1</a>
+            <a type='button' class='btn btn-sm btn-outline-dark' href='javascript:void(0);'onclick='makeBanner($id);'>$btn2</a>".
             // $btn3
             "<a type='button' class='btn btn-sm btn-outline-danger' href='javascript:void(0);'onclick='deleteImage($id);'>Delete</a>
             </div>
@@ -153,22 +170,22 @@ echo
 <!-- Add New Card Details Modal
 ================================== -->
 ";
-// echo 
-// "          
-// <!-- View Picture
-// ================================== -->
-// <div id='viewPic_$id' class='modal fade' role='dialog' data-backdrop='static' data-keyboard='false' tabindex='-1' aria-hidden='true'>
-//   <div class='modal-dialog modal-dialog-centered' role='document' modal-xl>
-//     <div class='modal-content'>
-//       <div class='modal-header'>
-//         <h5 class='modal-title font-weight-400'>$title &nbsp;&nbsp;&nbsp; ID: $imageid </h5>
-//         <button type='button' class='close font-weight-400' data-dismiss='modal' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button>
-//       </div>
-// <img src='$imagepath' class='img-fluid'/>
-//       </div>
-//   </div>
-// </div>
-// ";
+echo 
+"          
+<!-- View Picture
+================================== -->
+<div id='viewPic_$id' class='modal fade' role='dialog' data-backdrop='static' data-keyboard='false' tabindex='-1' aria-hidden='true'>
+  <div class='modal-dialog modal-dialog-centered' role='document' modal-xl>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h5 class='modal-title font-weight-400'>$title &nbsp;&nbsp;&nbsp; ID: $imageid </h5>
+        <button type='button' class='close font-weight-400' data-dismiss='modal' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button>
+      </div>
+<img src='../$imagepath' class='img-fluid'/>
+      </div>
+  </div>
+</div>
+";
 }
           ?>
 
@@ -212,18 +229,20 @@ echo
   <tbody> 
 <?php
 $query2 = mysqli_query($con,"SELECT * FROM categories ORDER BY RAND() ");
+$i=1;
 while ($text = mysqli_fetch_assoc($query2)) {
   extract($text);
 
       echo "
     <tr>
-      <th scope='row'>1</th>
+      <th scope='row'>$i</th>
       <td>$texty</td>
       <td><img src='../$logo' height='100px' width='auto'></td>
       <td>
       <a type='button' class='btn btn-sm btn-outline-danger' href='javascript:void(0);'onclick='deleteLogo($id);'>Delete</a>
       </td>
-    </tr>";}
+    </tr>";
+  $i++;}
 
     ?>
   </tbody>
@@ -260,10 +279,8 @@ while ($text = mysqli_fetch_assoc($query2)) {
     <script src="./dist/js/bootstrap.bundle.js"></script>
     <script>
 function deleteImage(id){
-  var answer = confirm("SURE TO   DELETE  THIS IMAGE?" +" NOTE THIS WILL REMOVE THE TITLE, DESCRIPTION AND ANY OTHER TAGS HOLD FOR THIS IMAGE");
+  var answer = confirm("SURE TO   DELETE  THIS PRODUCT?" +" NOTE THIS WILL REMOVE THE TITLE, DESCRIPTION AND ANY OTHER TAGS HOLD FOR THIS IMAGE");
     if(answer){
-        var answer2 = confirm("SURE TO DELETE THIS IMAGE?");
-        if(answer2){
         $.ajax({
             url: './ajax.php?',
             type: "POST",
@@ -271,7 +288,7 @@ function deleteImage(id){
                 'deleteImage' : id,
             },
             success : function(response) { 
-                alert('IMAGE  DELETED ');
+                alert('PRODUCT  DELETED ');
                 // window.location="account_holders.php";
                 console.log(response);
                 location.reload()
@@ -282,7 +299,6 @@ function deleteImage(id){
             }
 
         });
-    }
 }
 }
 function deleteLogo(id){
@@ -315,13 +331,13 @@ function makeBanner(id){
   var answer = confirm("SURE TO PERFORM THIS OPERATION?");
     if(answer){
         $.ajax({
-            url: './ajax.php?',
+            url: './ajax.php',
             type: "POST",
             data: {
                 'makeBanner' : id,
             },
             success : function(response) { 
-                alert('IMAGE SETTINGS UPDATED ');
+                alert('PRODUCT SETTINGS UPDATED  ');
                 // window.location="account_holders.php";
                 console.log(response);
                 location.reload()
@@ -334,20 +350,49 @@ function makeBanner(id){
         });
 }
 }
-function makeLatest(id){
+function makeBestSelling(id){
   var answer = confirm("SURE TO PERFORM THIS OPERATION?");
     if(answer){
         $.ajax({
-            url: './ajax.php?',
+            url: './ajax.php',
             type: "POST",
             data: {
-                'makeLatest' : id,
+                'makeBestSelling' : id,
             },
             success : function(response) { 
-                alert('IMAGE SETTINGS UPDATED ');
+                alert('PRODUCT SETTINGS UPDATED  ');
                 // window.location="account_holders.php";
                 console.log(response);
                 location.reload()
+            },
+            error : function() {                                                
+            },
+            complete : function() {
+            }
+
+        });
+}
+}
+
+function makeNewArrival(id){
+  var answer = confirm("ALTER NEW ARRIVAL: SURE TO PERFORM THIS OPERATION?");
+    if(answer){
+        $.ajax({
+            url: './ajax.php?NewArrival',
+            type: "POST",
+            data: {
+                'makeNewArrival' : id,
+            },
+            success : function(response) {
+              
+              if (response=="success") {
+                alert('PRODUCT SETTINGS UPDATED  ');
+                console.log(response);
+                location.reload()
+              }
+              else {alert('FAILED ');
+                console.log(response);
+                  }
             },
             error : function() {                                                
             },
@@ -367,7 +412,7 @@ function makeThumbnail(id){
                 'makeThumbnail' : id,
             },
             success : function(response) { 
-                alert('IMAGE SETTINGS UPDATED ');
+                alert('PRODUCT SETTINGS UPDATED  ');
                 // window.location="account_holders.php";
                 console.log(response);
                 location.reload()
@@ -432,7 +477,9 @@ success: function(msg) {
 
 
 });
-
+function setDecimal(event) {
+    this.value = parseFloat(this.value).toFixed(2);
+}
     </script>
   </body>
 </html>

@@ -43,6 +43,10 @@ require("./assets/config.php");
         <input type="number" id="price" name="price" class="form-control" placeholder="1000" required autofocus>
         <label for="price">Price</label>
       </div>
+      <div class="form-label-group">
+        <input type="number" id="dprice" name="dprice" class="form-control" placeholder="1000" required autofocus>
+        <label for="dprice">Discounted Price (price after discount)</label>
+      </div>
 
       <div class="form-label-group">
         <input type="text" id="BannerText" name="BannerText" class="form-control" placeholder="Banner Text" required autofocus>
@@ -61,14 +65,6 @@ require("./assets/config.php");
       <div class="form-label-group">
         <input type="file" accept="image/*" id="fileuplaod2" name="fileuplaod2" class="form-control" placeholder="Design for Upload" required>
         <label for="fileuplaod2">Product image 2</label>
-      </div>
-      <div class="form-label-group">
-        <input type="file" accept="image/*" id="fileuplaod3" name="fileuplaod3" class="form-control" placeholder="Design for Upload" required>
-        <label for="fileuplaod2">Product image 3</label>
-      </div>
-      <div class="form-label-group">
-        <input type="file" accept="image/*" id="fileuplaod4" name="fileuplaod4" class="form-control" placeholder="Design for Upload" required>
-        <label for="fileuplaod2">Product image 4</label>
       </div>
       <div class="form-label-group">
         <select  id="category" name="category" class="form-control" placeholder="Image category" required>
